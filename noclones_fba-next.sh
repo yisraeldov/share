@@ -21,13 +21,13 @@ gamelist_url="https://raw.githubusercontent.com/libretro/libretro-fba/master/gam
 gamelist="/tmp/lr-fba-next_gamelist.txt"
 noclone_list=$(mktemp /tmp/noclonelist.XXXX)
 
-romset_dir="$1"
-noclone_romset_dir="$2"
+romset_dir=""
+noclone_romset_dir=""
 
 # the path to romsets are mandatory
-if [[ -z "$romset_dir" || -z "$2" ]]; then
+if [[ -z "$romset_dir" || -z "" ]]; then
     echo 'missing argument!' >&2
-    echo "usage: $(basename $0) /path/to/original/romset /noclone/romset/destination" >&2
+    echo "usage: $(basename ) /path/to/original/romset /noclone/romset/destination" >&2
     exit 1
 fi
 
@@ -104,7 +104,7 @@ echo "Starting the copy..."
 # copying the roms that we want to the destination dir
 while read -r rom; do
     echo -n "Copying: "
-    cp -v "$rom" "$noclone_romset_dir"
+    cp -l -v "$rom" "$noclone_romset_dir"
 done < "$noclone_list"
 
 # removing temp files
